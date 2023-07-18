@@ -1,0 +1,99 @@
+-- Exo 1 : Créer les tables en spécifiant les clés primaires et étrangères
+
+CREATE DATABASE exo2;
+
+USE exo 2;
+
+CREATE TABLE circuit(
+    nocircuit int PRIMARY KEY,
+    destination VARCHAR(30),
+    duree float
+);
+
+CREATE TABLE voyage(
+	novoyage INT PRIMARY KEY,
+	datev date,
+	prix float,
+	nbplacemax int,
+	nocircuit int
+);
+
+CREATE TABLE client(
+	noclient INT PRIMARY KEY,
+	nom VARCHAR(50),
+	prenom VARCHAR(50),
+	tel VARCHAR(10),
+	adresse VARCHAR(50),
+	codepostal VARCHAR(5)
+);
+
+CREATE TABLE inscription(
+	date_inscription date,
+	noclient INT,
+	novoyage INT,
+	PRIMARY KEY(noclient, novoyage)
+);
+
+ALTER TABLE inscription
+ADD CONSTRAINST FOREIGN KEY noclient REFERENCES client(noclient);
+
+ALTER TABLE inscription
+ADD CONSTRAINST FOREIGN KEY novoyage REFERENCES voyage(novoyage);
+
+ALTER TABLE voyage
+ADD CONSTRAINST FOREIGN KEY nocircuit REFERENCES circuit(nocircuit);
+
+
+-- Exo 2 : Introduire quelques données pour tester
+INSERT INTO client(noclient, nom, prenom,tel,adresse,codepostal) VALUES
+(001, "DUBOIS", "Louis", 0673749283, "20 avenue du Bois", 75000),
+(002, "LAURENT", "Jean", 0652874583, "5 rue Medecin", 34000),
+(003, "DUPONT", "Sophia", 0793742763, "6 rue Jeanne", 64000);
+
+INSERT INTO circuit(nocircuit, destination, duree) VALUES
+(001, "Paris", "5h"),
+(002, "Bordeaux", "2h"),
+(003, "Nice", "4h");
+
+INSERT INTO voyage(novoyage, datev, prix, nbplacemax) VALUES
+(123, "15-02-22", 65, 30),
+(124, "20-05-22", 40, 25),
+(125, "13-08-22", 35, 65);
+
+
+-- Exo 3 : Afficher le nombre d'inscriptions entre le 11/02/2015 et 14/02/2015
+SELECT COUNT(novoyage)
+FROM voyage
+WHERE datev between "11-02-2015" AND "14-02-2015";
+
+
+-- Exo 4 : Afficher pour chaque client (nom du client), le numéro de voyage, la date d’inscription, la date de voyage, le prix du voyage, la destination et la durée du voyage auquel il participe
+SELECT client.nom, inscription.date_inscription, voyage.novoyage, voyage.datev, voyage.prix, voyage.nbplacemax, circuit.destination, circuit.duree
+FROM client
+INNER JOIN inscription ON client.noclient=inscription.noclient
+INNER JOIN voyage ON inscription.novoyage=voyage.novoyage
+INNER JOIN circuit ON voyage.nocircuit=circuit.nocircuit;
+
+
+-- Exo 5 : Afficher pour chaque voyage (novoyage) le nombre de places libres restante
+
+-- Exo 6 : Afficher pour chaque client (nom du client) le montant total qu’il a payé pour tous les voyages auxquels il a participé
+SELECT client.nom, SUM(voyage.prix)
+FROM client
+INNER JOIN inscription  
+ON client.noclient=inscription.noclient
+INNER JOIN voyage
+ON inscription.novoyage=voyage.novoyage
+GROUP BY client.nom;
+
+-- Exo 7 : Diminuer le prix de 10% et augmenter le nombre maximal de place de 20% pour les voyages dont le nombre de participants est égal au nombre maximal de places
+
+-- Exo 8 : Supprimer les clients qui ne sont pas inscrit dans un voyage depuis 3 ans
+DELETE noclient
+FROM client
+INNER JOIN inscription
+ON inscription.noclient=client.noclient
+INNER JOIN voyage
+ON voyage.novoyage=inscription.novoyage
+WHERE datev<YEAR()-3;
+

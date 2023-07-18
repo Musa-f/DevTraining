@@ -1,0 +1,23 @@
+body{
+    background-color: aliceblue;
+}
+
+.hauteur{
+    height: 500px;
+}
+
+.format70{
+    height: 70%;
+}
+
+.centrer{
+    margin-top: 10%;
+}
+
+.margin2{
+    margin: 2%;
+}
+
+.padding{
+    padding: 2%;
+}

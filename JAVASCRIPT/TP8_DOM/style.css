@@ -1,0 +1,14 @@
+body{
+    display: grid;
+    place-content: center;
+    text-align: center;
+}
+
+.list-style{
+    text-align: left;
+}
+
+.style{
+    background-color: aqua;
+    padding: 2%;
+}

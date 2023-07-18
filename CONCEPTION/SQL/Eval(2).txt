@@ -1,0 +1,132 @@
+-- 0. Créez la BDD relationnelle suivante
+
+CREATE DATABASE eCommerceDB;
+USE eCommerceDB;
+
+CREATE TABLE client(
+	id_client INT PRIMARY KEY AUTO_INCREMENT,
+	nom_client VARCHAR(50),
+	adresse_client VARCHAR(50),
+	tel_client INT
+);
+
+CREATE TABLE commande(
+	id_commande INT PRIMARY KEY AUTO_INCREMENT,
+	id_client INT,
+	date_commande DATE,
+	FOREIGN KEY(id_client) REFERENCES client(id_client)
+);
+
+CREATE TABLE produit(
+	id_produit INT PRIMARY KEY AUTO_INCREMENT,
+	nom_produit VARCHAR(50),
+	description_produit TEXT,
+	prix_produit INT
+);
+
+CREATE TABLE contenu(
+	id_produit INT,
+	id_commande INT,
+	quantite_contenu INT,
+	CONSTRAINT fk_produit FOREIGN KEY(id_produit) REFERENCES produit(id_produit),
+	CONSTRAINT fk_commande FOREIGN KEY(id_commande) REFERENCES commande(id_commande),
+	PRIMARY KEY(id_produit, id_commande)
+);
+
+
+-- 0.5. Ajoutez 5 données dans chaque table
+INSERT INTO client(nom_client, adresse_client, tel_client) VALUES
+("NOMCLIENT1", "adresse1", 0000001),
+("NOMCLIENT2", "adresse2", 0000001),
+("NOMCLIENT3", "adresse3", 0000001),
+("NOMCLIENT4", "adresse4", 0000001),
+("NOMCLIENT5", "adresse5", 0000001);
+
+INSERT INTO commande VALUES
+(1, 1, "2023-01-10"),
+(2, 2, "2023-02-15"),
+(3, 3, "2022-03-11"),
+(4, 4, "2022-06-06"),
+(5, 5, "2022-08-28");
+
+INSERT INTO produit(nom_produit, description_produit, prix_produit) VALUES
+("produit1", "description1", 5),
+("produit2", "description2", 2),
+("produit3", "description3", 9),
+("produit4", "description4", 6),
+("produit5", "description5", 10);
+
+INSERT INTO contenu VALUES
+(1, 1, 6),
+(2, 2, 9),
+(3, 3, 4),
+(4, 3, 7),
+(5, 5, 2);
+
+
+-- I. BON Quels sont les produits présents dans la table "Produits" de la BDD eCommerceDB?
+SELECT nom_produit
+FROM produit;
+
+-- II. BON Combien y a-t-il de commandes passées dans la table "Commandes" de la BDD eCommerceDB?
+SELECT COUNT(*)
+FROM commande;
+
+-- III. BON Quels sont les clients qui ont passé une commande sur le site eCommerceDB?
+SELECT client.nom_client
+FROM client 
+INNER JOIN commande 
+ON client.id_client = commande.id_client;
+
+-- FAUX IV. Combien de produits ont été commandés dans la table "contenu" de la BDDeCommerceDB?
+SELECT COUNT(produit.id_produit)
+FROM produit
+INNER JOIN contenu
+ON produit.id_produit = contenu.id_produit;
+-- CORRIGE
+SELECT SUM(quantite_contenu)
+FROM contenu;
+
+
+-- FAUX V. Quels sont les produits les plus commandés dans la table "contenu" de la BDDeCommerceDB?
+SELECT produit.nom_produit, COUNT(contenu.id_produit) AS nombre_commande
+FROM produit
+INNER JOIN contenu
+ON produit.id_produit = contenu.id_produit
+GROUP BY contenu.id_produit
+HAVING MAX(nombre_commande)>MIN(nombre_commande);
+-- CORRIGE
+SELECT produit.nom_produit, SUM(contenu.quantite_contenu) AS total_commande
+FROM produit
+INNER JOIN contenu
+ON produit.id_produit = contenu.id_produit
+GROUP BY produit.nom_produit
+ORDER BY total_commande DESC;
+
+-- FAUX. VI. Quel est le total des ventes pour chaque produit dans la table "contenu" de la BDDeCommerceDB?
+SELECT SUM(produit.prix_produit), produit.nom_produit
+FROM produit
+INNER JOIN contenu
+ON produit.id_produit = contenu.id_produit
+GROUP BY produit.nom_produit;
+-- CORRIGE
+SELECT SUM(produit.prix_produit*quantite_produit), produit.nom_produit
+FROM produit
+INNER JOIN contenu
+ON produit.id_produit = contenu.id_produit
+GROUP BY produit.nom_produit;
+
+-- FAUX VII. Quels sont les produits qui ont été commandés plus de 10 fois dans la BDD eCommerceDB?
+SELECT produit.nom_produit, COUNT(produit.id_produit)
+FROM produit 
+INNER JOIN contenu
+ON produit.id_produit = contenu.id_produit
+GROUP BY produit.nom_produit
+HAVING COUNT(produit.id_produit)>10;
+-- CORRIGE
+SELECT produit.nom_produit
+FROM produit 
+INNER JOIN contenu
+ON produit.id_produit = contenu.id_produit
+GROUP BY produit.nom_produit
+HAVING SUM(produit.quantite_contenu)>10;

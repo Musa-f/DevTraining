@@ -1,0 +1,26 @@
+caption{
+    color: purple;
+    font-weight: 800;
+}
+
+table{
+    border-collapse: collapse;
+    border: double purple 5px;
+}
+
+
+table th, table td{
+    border: solid black 2px;
+}
+
+.header{
+    background: skyblue;
+}
+
+.row{
+    background: greenyellow;
+}
+
+.col{
+    background: yellow;
+}

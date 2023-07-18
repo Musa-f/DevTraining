@@ -1,0 +1,18 @@
+h1{
+    text-shadow: 3px -10px 8px purple;
+}
+
+.red{
+    box-shadow: 5px 5px 40px red;
+}
+
+.green{
+    box-shadow: -5px 10px 4px green;
+}
+
+div{
+    background: yellow;
+    width: 600px;
+    height: 600px;
+    text-align: center;
+}

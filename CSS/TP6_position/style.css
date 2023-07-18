@@ -1,0 +1,39 @@
+form{
+    background: linear-gradient(#ADABDB, #C3CFFA);
+    width: 400px;
+    height: 250px;
+    padding: 2%;
+}
+
+legend{
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+.connexion{
+    margin: 5% 0 0 2%;
+}
+
+input[type=text], [type=checkbox]{
+    margin: 1%;
+}
+
+input[type=submit]{
+    padding: 2%;
+    background: white;
+    border: none;
+    color: #C7ABDB;
+    font-weight: bold;
+}
+
+
+.centrage{
+    text-align: center;
+    margin-top: 8%;
+}
+
+label{
+    display: block;
+}

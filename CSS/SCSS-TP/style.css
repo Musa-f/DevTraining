@@ -1,0 +1,42 @@
+/*------------------EXO1------------------*/
+.test {
+  border: solid 1px grey;
+  background-color: azure;
+  margin: 13px;
+  padding: 26px;
+}
+
+/*------------------FIN------------------*/
+/*------------------EXO2------------------*/
+.test2 {
+  background-color: aqua;
+  margin: 13px;
+  padding: 26px;
+}
+
+/*------------------FIN------------------*/
+h1 {
+  text-align: center;
+  color: #fff;
+}
+
+.container {
+  background-color: teal;
+  margin: 2%;
+  padding: 2%;
+}
+
+.container-child {
+  background-color: #fff;
+  padding: 2%;
+}
+
+.button {
+  margin: 2%;
+  text-align: center;
+}
+
+button {
+  border: none;
+  background-color: #fff;
+}/*# sourceMappingURL=style.css.map */

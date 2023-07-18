@@ -1,0 +1,44 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+table{
+    width: 250px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th{
+    padding: 4px;
+    border-bottom: double 3px black;
+}
+
+td{
+    padding: 4px;
+    border-bottom: 1px solid black;
+}
+
+.inp{
+    text-align: center;
+}
+
+#submit{
+    margin: 5px;
+    padding: 5px;
+}
+
+.a{
+    margin-top: 20px;
+    width:90%;
+}
+
+@media screen and (min-width:900px) {
+    table{
+        width: 70%;
+        height: 40%;
+    }
+}

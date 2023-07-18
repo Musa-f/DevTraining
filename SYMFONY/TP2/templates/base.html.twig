@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>TP 2</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+        <style>
+        body{
+            background: #E0E0E0;
+        }
+        .block-body{
+            height:600px;
+        }
+        </style>
+    </head>
+
+    <body>
+        <h1 class="text-center m-4">TP : Gestion du CRUD</h1>
+        <div class="card text-center m-3">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('app_post_crud_index') }}">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('app_post_crud_new') }}">Nouveau article</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('app_author_crud_new') }}">Nouveau auteur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('app_post_category_crud_new') }}">Nouvelle catégorie</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body block-body">
+               {% block body %}{% endblock %}
+            </div>
+        </div>
+        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/tab.js') }}"></script>
+    </body>
+</html>

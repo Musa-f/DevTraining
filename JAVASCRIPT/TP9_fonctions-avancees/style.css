@@ -1,0 +1,52 @@
+body {
+    display: grid;
+    height: 100vh;
+    place-content: center;
+    background-color: #181c1f;
+}
+
+#timer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    width: 700px;
+    height: 400px;
+    background-color: #fff;
+    box-shadow: 0 0 20px #fff;
+    border-radius: 10px;
+}
+
+.chrono{
+    margin-top: 60px;
+}
+
+.time{
+    font-size: 4rem;
+    font-weight: 600;
+}
+
+
+button{
+    font-weight: 500;
+    font-size: 1.5rem;
+    background-color: #181c1f;
+    box-shadow: 0 0 20px #181c1f;
+    color: #fff;
+    border: none;
+    padding: 2% 4% 2% 4%;
+    margin: 0 4% 0 4%;
+    border-radius: 10px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+button:active{
+    border: solid 2px #fff;
+}
+
+.active{
+    pointer-events: none;
+}

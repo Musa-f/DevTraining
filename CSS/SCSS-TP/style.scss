@@ -1,0 +1,74 @@
+$bordure: solid 1px grey;
+$fond: teal;
+$fond-child: #fff;
+$espace: 2%;
+$centrer: center;
+$shadow: 2px 2px 15px black;
+$width: 1300px;
+
+/*------------------EXO1------------------*/
+@function widthMinMargin($width){
+    $margin: $width/100;
+    @return $margin;
+}
+
+@function widthMinPadding($width){
+    $padding: $width/50;
+    @return $padding;
+}
+
+.test{
+    border: $bordure;
+    background-color: azure;
+    margin: widthMinMargin($width);
+    padding: widthMinPadding($width);
+}
+/*------------------FIN------------------*/
+
+/*------------------EXO2------------------*/
+$margin: 'margin';
+$padding: 'padding';
+@function resize($dataType, $width){
+    @if($dataType == $margin){
+        $valeur: $width/100;
+        @return $valeur;
+    }
+    @else if($dataType == $padding){
+        $valeur: $width/50;
+        @return $valeur;
+    }
+}
+
+.test2{
+    background-color: aqua;
+    margin: resize($margin, $width);
+    padding: resize($padding, $width);
+}
+/*------------------FIN------------------*/
+
+h1{
+    text-align: $centrer;
+    color: #fff;
+}
+
+.container{
+    background-color: $fond;
+    margin: $espace;
+    padding: $espace;
+}
+
+.container-child{
+    background-color: #fff;
+    padding: $espace;
+}
+
+.button{
+    margin: $espace;
+    text-align: $centrer;
+}
+
+button{
+    border: none;
+    background-color: $fond-child;
+}
+

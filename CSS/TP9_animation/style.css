@@ -1,0 +1,13 @@
+
+img:hover{
+    transform: skewX(40deg)
+  
+}
+
+img:active{
+    transform: translateX(200px);
+}
+
+p{
+    transform:scale(0.5) translate(20px) rotate(35deg) skewY(10deg);
+}

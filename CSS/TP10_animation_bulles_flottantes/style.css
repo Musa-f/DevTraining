@@ -1,0 +1,84 @@
+body{
+    background-color: gainsboro;
+}
+
+.container{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    position: absolute; 
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+.circle{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.anim-1, .anim-2, .anim-3{
+    position: absolute;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    transition: 2s ease;
+    animation-direction: alternate;
+}
+
+/*Cercle 1*/
+.anim-1{
+    background-color: azure;
+    margin-left: 80px;
+    animation-name: animation-1;
+}
+
+@keyframes animation-1{
+    0% {
+        transform: translate(0px);
+    }
+    50%{
+        background-color: teal;
+    }
+    100%{
+        transform: translateY(150px);
+    }
+}
+
+/*Cercle 2*/
+.anim-2{
+    background-color: teal;
+    margin-left: 10px;
+    animation-name: animation-2;
+}
+
+@keyframes animation-2{
+    0% {
+        transform: translate(0px);
+    }
+    100%{
+        transform: translate(150px, 150px);
+    }
+}
+
+/*Cercle 3*/
+.anim-3{
+    background-color: yellowgreen;
+    margin-left: 10px;
+    animation-name: animation-3;
+}
+
+@keyframes animation-3{
+    0% {
+        transform: translate(0px);
+    }
+    25% {
+        transform: translateX(130px);
+    }
+    75%{
+        transform: translate(0px, 160px);
+    }
+    100%{
+        transform: translate(130px, 160px);
+    }
+}
+

@@ -1,0 +1,133 @@
+-- 1. Créez la BDD relationnelle suivante
+CREATE DATABASE eval;
+
+USE eval;
+
+CREATE TABLE film(
+    numfilm INT PRIMARY KEY AUTO_INCREMENT,
+    titre VARCHAR(50),
+    duree INT,
+    producteur VARCHAR(50)
+);
+
+CREATE TABLE cinema(
+    numcinema INT PRIMARY KEY AUTO_INCREMENT,
+    nomcinema VARCHAR(50),
+    ruecinema VARCHAR(50),
+    codepostal INT
+);
+
+CREATE TABLE ville(
+	codepostal INT PRIMARY KEY,
+	nomville VARCHAR(50)
+);
+
+CREATE TABLE salle(
+	numsalle INT PRIMARY KEY AUTO_INCREMENT,
+	capacite INT,
+	numcinema INT
+);
+
+CREATE TABLE projection(
+    numfilm INT,
+    numsalle INT,
+    datep date,
+    nbreentree int,
+    PRIMARY KEY(numfilm, numsalle)
+);
+
+ALTER TABLE projection
+ADD CONSTRAINT FOREIGN KEY (numfilm) 
+REFERENCES film(numfilm);
+
+ALTER TABLE projection
+ADD CONSTRAINT FOREIGN KEY (numsalle)
+REFERENCES salle(numsalle);
+
+ALTER TABLE salle
+ADD CONSTRAINT FOREIGN KEY (numcinema)
+REFERENCES cinema(numcinema);
+
+ALTER TABLE cinema
+ADD CONSTRAINT FOREIGN KEY (codepostal)
+REFERENCES ville(codepostal);
+
+
+-- 2. Remplissez chaque table de la BDD avec 5 enregistrements
+INSERT INTO film VALUES
+(1, "film1", 120, "producteur1"),
+(2, "film2", 150, "producteur3"),
+(3, "film3", 80, "producteur2"),
+(4, "film4", 100, "producteur1"),
+(5, "film5", 190, "producteur2");
+
+INSERT INTO cinema VALUES
+(1, "cinema1", "rue1", 05000),
+(2, "cinema3", "rue2", 15000),
+(3, "cinema1", "rue3", 95000),
+(4, "cinema2", "rue2", 65000),
+(5, "cinema3", "rue1", 55000);
+
+INSERT INTO salle VALUES
+(1, 80, 1),
+(2, 60, 3),
+(3, 65, 2),
+(4, 30, 5),
+(5, 50, 4);
+
+INSERT INTO ville VALUES
+(05000, "ville1"),
+(15000, "ville2"),
+(95000, "ville3"),
+(65000, "ville4"),
+(55000, "ville5");
+
+INSERT INTO projection VALUES
+(1, 5, "05-06-2022", 30),
+(2, 3, "19-07-2022", 60),
+(3, 2, "25-09-2022", 25),
+(4, 1, "15-11-2022", 45),
+(5, 4, "21-12-2022", 30);
+
+
+-- 3. Affichez l’ensemble des films dont la durée est supérieure à 1h
+SELECT titre
+FROM film
+WHERE duree>60;
+
+
+-- 4. Affichez le nombre de salles de Cinémas ayant une capacité entre 20 et 80 sièges
+SELECT COUNT(numsalle)
+FROM salle
+WHERE capacite BETWEEN 20 AND 80;
+
+
+-- 5. Affichez la liste des projections où le nombre d’entrées a dépassé 80% de la capacité de la salle de
+projection.
+SELECT projection.numfilm, film.titre, projection.datep, projection.nbreentree, salle.capacite
+FROM projection
+JOIN film ON projection.numfilm = film.numfilm
+JOIN salle ON projection.numsalle = salle.numsalle
+WHERE projection.nbreentree >= (salle.capacite * 0.8);
+
+
+-- 6. Affichez la capacité totale de chaque cinéma
+SELECT salle.capacite
+FROM salle
+INNER JOIN cinema
+ON cinema.numcinema=salle.numcinema;
+
+
+-- 7. Supprimez les films qui ne sont pas projetés depuis 3ans
+DELETE FROM film
+INNER JOIN projection
+ON projection.numfilm=film.numfilm
+WHERE projection.datep<CURRENT_DATE-"0003-00-00";
+
+
+-- 8. Doublez le nombre d’entrée de toutes les séances pour le film dont le titre est « Film1 »
+UPDATE projection
+INNER JOIN film
+ON projection.numfilm=film.numfilm
+SET projection.nbreentree = projection.nbreentree*2
+WHERE film.titre="film1";

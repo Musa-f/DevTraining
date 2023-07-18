@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <img src="{{ asset('img/header.png') }}" class="card-img-top" style="width: 40rem;">
+    <h5 class="card-title mt-4">Bienvenue sur notre nouveau site !</h5>
+    <p class="card-text">Vous souhaitez découvrir nos articles ?</p>
+    <a href="{{ url('app_articles') }}" class="btn btn-primary">Voir les articles</a>
+{% endblock %}

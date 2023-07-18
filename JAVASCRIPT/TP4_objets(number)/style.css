@@ -1,0 +1,35 @@
+body {
+    display: grid;
+    height: 90vh;
+    place-content: center;
+    background-color: cadetblue;
+}
+
+.box{
+    display: grid;
+    grid-template-rows: repeat(3,1fr);
+    width: 500px;
+    height: 300px;
+    text-align: center;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgb(39, 70, 71);
+}
+
+.text{
+    align-self: center;
+}
+
+h1{
+    color: rgb(39, 70, 71);
+}
+
+button{
+    margin: 10px;
+}
+
+#alert{
+    align-self: center;
+    font-size: 1.2rem;
+}
